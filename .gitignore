@@ -1,0 +1,14 @@
+# Logs
+logs
+*.log
+
+# build/bundle files
+assets/build*
+assets/bundle*
+*.map
+
+node_modules
+.DS_Store
+
+theme.update
+config.yml

@@ -1,0 +1,39 @@
+{
+    "name": "shopify-boilerplate",
+    "version": "1.0.0",
+    "description": "Basic boilerplate theme for Shopify using Theme Kit.",
+    "main": "src/index.js",
+    "engines": {
+        "node": "12"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
+    },
+    "scripts": {
+        "dev": "concurrently --kill-others 'livereload . -e update' 'webpack --watch' 'theme watch --notify=theme.update'",
+        "build": "NODE_ENV=production webpack",
+        "deploy": "theme deploy"
+    },
+    "author": "50 Fish / John Robson",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.4.0",
+        "@babel/preset-env": "^7.4.2",
+        "babel-loader": "^8.0.5",
+        "babel-polyfill": "^6.26.0",
+        "css-loader": "^2.1.1",
+        "livereload": "^0.9.3",
+        "mini-css-extract-plugin": "^0.5.0",
+        "node-sass": "^5.0.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.1",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.6.0",
+        "prettier": "^1.16.4",
+        "sass-loader": "^7.1.0",
+        "terser-webpack-plugin": "^1.2.3",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0"
+    }
+}
