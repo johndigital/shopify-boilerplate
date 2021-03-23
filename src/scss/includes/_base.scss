@@ -1,0 +1,66 @@
+@import 'vars';
+
+body {
+    // color vars
+    --white: #ffffff;
+    --black: #000000;
+
+    // type vars
+    --font-body: Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+    --font-sans: sans-serif;
+    --font-mono: monospace;
+    --font-serif: serif;
+
+    font-family: var(--font-body);
+    @include fontSize(16px);
+    margin: 0;
+
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+// mobile globals
+@include bp(s) {
+    html {
+        // Globally adjusts everything
+        // set with the fontSize mixin
+        font-size: 12px;
+    }
+    .desktop-only {
+        display: none;
+    }
+}
+@include bigger-than(700px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+a,
+button {
+    transition: color 200ms;
+    text-decoration: none;
+    color: inherit;
+}
+
+// Text selection
+::selection {
+    color: #ebebe3;
+    background: #222;
+}
+::-moz-selection {
+    color: #ebebe3;
+    background: #222;
+}
+
+// Form Resets
+button {
+    @include button-reset;
+    @include no-select;
+}
+input {
+    @include input-reset;
+}
+
+// Z-index layering

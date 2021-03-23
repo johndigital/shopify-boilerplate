@@ -1,0 +1,124 @@
+@import 'easings';
+
+// mixins
+@mixin fill($position: absolute) {
+    position: #{$position};
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+@mixin cover {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+@mixin contain {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+@mixin no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+@mixin button-reset {
+    @include no-select;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    border-radius: 0;
+    font-weight: inherit;
+    font-size: inherit;
+    padding: 0;
+    color: inherit;
+    margin: 0;
+}
+@mixin input-reset {
+    background-color: transparent;
+    appearance: none;
+    font-family: inherit;
+    border-radius: 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    border: none;
+    color: inherit;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+@mixin ul-reset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+// Type Size
+// ---------------------------------------------
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return #{$remSize}rem;
+}
+@function scale($size) {
+    $calced: ($size / 1750px) * 100;
+    @return #{$calced}vw;
+}
+@mixin fontSize($size) {
+    font-size: $size; // Fallback in px
+    font-size: calculateRem($size);
+}
+
+// Breakpoints
+// ---------------------------------------------
+$breakpoints: (
+    xl: (
+        min-width: 1100px
+    ),
+    l: (
+        max-width: 992px
+    ),
+    m: (
+        max-width: 840px
+    ),
+    s: (
+        max-width: 700px
+    ),
+    xs: (
+        max-width: 480px
+    )
+);
+@mixin bp($name) {
+    $value: map-get($breakpoints, $name);
+    @if map-has-key($breakpoints, $name) {
+        @media #{inspect(map-get($breakpoints, $name))} {
+            @content;
+        }
+    } @else {
+        @warn "The '#{$name}' breakpoint is not defined. "
+        + "Please make sure it is defined in the global.scss '$breakpoint' map.";
+    }
+}
+
+@mixin smaller-than($size) {
+    @media (max-width: $size) {
+        @content;
+    }
+}
+@mixin bigger-than($size) {
+    @media (min-width: $size) {
+        @content;
+    }
+}
