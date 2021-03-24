@@ -15,9 +15,11 @@
     </head>
     <body>
 
-        <div id="container">
+        <div id="wrapper" data-barba="wrapper">
             {% include 'header' %}
-            {{ content_for_layout }}
+            <div id="container">
+                {{ content_for_layout }}
+            </div>
             {% include 'footer' %}
         </div>
 

@@ -39,5 +39,8 @@
         "terser-webpack-plugin": "^5.1.1",
         "webpack": "^5.27.2",
         "webpack-cli": "^4.5.0"
+    },
+    "dependencies": {
+        "@barba/core": "^2.9.7"
     }
 }

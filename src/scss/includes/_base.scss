@@ -48,10 +48,13 @@ button {
 }
 
 // Structure
-#container {
+#wrapper {
     grid-template-rows: auto 1fr auto;
     display: grid;
     min-height: 100vh;
+}
+#container {
+    position: relative;
 }
 .contained {
     padding-right: var(--margin);

@@ -1,0 +1,20 @@
+.fade-out {
+    animation: fade 200ms ease reverse;
+    opacity: 0;
+}
+.fade-in {
+    animation: fade 200ms ease forwards;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
