@@ -63,6 +63,32 @@ button {
     margin-left: auto;
 }
 
+// entry styling
+.entry {
+    p {
+        line-height: 1.2;
+        min-height: 1px;
+    }
+    ul,
+    ol {
+        line-height: 1.8;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    & > * {
+        margin-bottom: var(--margin);
+        margin-top: var(--margin);
+    }
+    & > *:first-child {
+        margin-top: 0;
+    }
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
 // Text selection
 ::selection {
     color: #ebebe3;
