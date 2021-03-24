@@ -1,0 +1,32 @@
+<div class="section-full-image">
+    <div class="contained">
+        <div class="image-area">
+            {{ section.settings.image | img_url: '1200x500', crop: 'center' | img_tag }}
+        </div>
+        <div class="caption-area">
+            <h2>{{ section.settings.caption }}</h2>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Large Image",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "id": "caption",
+            "type": "text",
+            "label": "Caption"
+        }
+    ],
+    "presets": [{
+        "name": "Large Image",
+        "category": "Images"
+    }]
+}
+{% endschema %}

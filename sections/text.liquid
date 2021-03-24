@@ -1,0 +1,24 @@
+<div class="section-text">
+    <div class="contained">
+        <div class="entry">
+            {{ section.settings.content }}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Simple Text",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+        }
+    ],
+    "presets": [{
+        "name": "Text",
+        "category": "Content"
+    }]
+}
+{% endschema %}
