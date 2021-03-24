@@ -41,6 +41,8 @@
         "webpack-cli": "^4.5.0"
     },
     "dependencies": {
-        "@barba/core": "^2.9.7"
+        "@barba/core": "^2.9.7",
+        "jquery": "^3.6.0",
+        "vue": "^2.6.12"
     }
 }

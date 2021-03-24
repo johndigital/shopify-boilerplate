@@ -15,6 +15,7 @@ Things to document:
 -   entry class
 -   barbara
 -   class convention on each templates/\* page
+-   import ~/
 
 ---
 

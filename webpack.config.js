@@ -52,13 +52,17 @@ module.exports = {
                         presets: [
                             [
                                 '@babel/preset-env',
-                                // UNCOMMENT TO USE ASYNC/AWAIT
-                                // { useBuiltIns: 'usage', corejs: 3 },
+                                { useBuiltIns: 'usage', corejs: 3 },
                             ],
                         ],
                     },
                 },
             },
         ],
+    },
+    resolve: {
+        alias: {
+            '~': path.resolve(__dirname, 'src/'),
+        },
     },
 }
