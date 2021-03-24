@@ -108,7 +108,7 @@ By default, there is a library being used called [barba.js](https://barba.js.org
 
 If you do choose to use it, there is a small convention you myst adhere to: The unique contents of each different page must be wrapped in an element that has the attribute `data-barba="container"`. For all the files that exist, this has already been added. Each of the files within the `/templates` folder correspond directly with a page or page template, and so they each have a single root element <main> which bears this attribute. If you are choosing to use barba, when creating new page templates just make sure you keep consistent with this convention.
 
-One other consideration with barba is that each time the user changes page, the primary content of the page are replaced asynchronoously but the global elements (header, footer, etc) are not and the page is **not** reloaded. This means that any bootstrapping logic that must happen on individual pages will need to be re-initialized after barba has changed pages.
+One other consideration with barba is that each time the user changes page, the primary content of the page are replaced asynchronoously but the global elements (header, footer, etc) are not and the page is **not** reloaded. Because of this, new page elements that have just come in from the page change will need to be re-initialized. This is the reason for the diitinction in the main.js file between things that only need to run once, vs things that should run every page. Importing jQuery and attaching it to the window object for example only ever need to run once, but setting up a carousel on the home page will need to be run each page-change.
 
 **Vue**:
 
@@ -116,7 +116,7 @@ Though there is neary no opinion of it within this codebase, Vue has been instal
 
 **jQuery**:
 
-Similar to Vue, there is a file which imports jQuery easily from this template if you prefer it. Simply requiring that file once from within the init function will make it globally available on window.
+Similar to Vue, there is a file which imports jQuery easily from this template if you prefer it. Simply requiring that file once from within the "runOnce" function will make it globally available on window.
 
 **ES6 Features**:
 

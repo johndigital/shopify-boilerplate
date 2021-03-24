@@ -42,7 +42,9 @@
     },
     "dependencies": {
         "@barba/core": "^2.9.7",
+        "fontfaceobserver": "^2.1.0",
         "jquery": "^3.6.0",
+        "lodash": "^4.17.21",
         "vue": "^2.6.12"
     }
 }
