@@ -1,0 +1,28 @@
+.site-header {
+    padding: 20px 0;
+
+    > .contained {
+        grid-template-columns: 1fr auto 1fr;
+        display: grid;
+    }
+    h1 {
+        margin: 0;
+    }
+    nav a {
+        display: inline-block;
+        padding: 0 10px;
+
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .account-menu {
+        text-align: right;
+    }
+}

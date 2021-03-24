@@ -1,0 +1,11 @@
+{% if shop.customer_accounts_enabled %}
+    <nav class="account-menu">
+        {% if customer %}
+            <a href="/account">Account</a>
+            {{ 'Log Out'  | customer_logout_link }}
+        {% else %}
+            {{ 'Log In ' | customer_login_link }}
+            {{ 'Sign Up' | customer_register_link }}
+        {% endif %}
+    </nav>
+{% endif %}

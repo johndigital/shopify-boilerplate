@@ -12,7 +12,10 @@
         "singleQuote": true
     },
     "scripts": {
-        "dev": "concurrently --kill-others 'livereload . -e update' 'webpack --watch' 'theme watch --notify=theme.update'",
+        "reload": "livereload . -e update",
+        "webpack": "webpack --watch",
+        "shopify": "theme watch --notify=theme.update",
+        "dev": "concurrently --kill-others -c yellow,cyan,green -n reload,webpack,shopify 'npm run reload' 'npm run webpack' 'npm run shopify'",
         "build": "NODE_ENV=production webpack",
         "deploy": "theme deploy"
     },

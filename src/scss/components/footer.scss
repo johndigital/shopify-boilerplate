@@ -1,0 +1,5 @@
+.site-footer {
+    text-transform: uppercase;
+    @include fontSize(12px);
+    padding: 20px 0;
+}

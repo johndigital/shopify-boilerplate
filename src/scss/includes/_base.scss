@@ -1,6 +1,9 @@
 @import 'vars';
 
 body {
+    // Spacing
+    --margin: 30px;
+
     // color vars
     --white: #ffffff;
     --black: #000000;
@@ -42,6 +45,20 @@ button {
     transition: color 200ms;
     text-decoration: none;
     color: inherit;
+}
+
+// Structure
+#container {
+    grid-template-rows: auto 1fr auto;
+    display: grid;
+    min-height: 100vh;
+}
+.contained {
+    padding-right: var(--margin);
+    padding-left: var(--margin);
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 // Text selection
