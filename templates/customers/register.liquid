@@ -1,1 +1,61 @@
-<!-- /templates/customers/register.liquid -->
+<main class="customers-register" data-barba="container">
+    <div class="contained">
+
+        <h2 class="account-page-title">Sign Up</h2>
+
+        {% form 'create_customer' %}
+            {{ form.errors | default_errors }}
+
+            <p>
+                Create a new user account. Already have one? <a href="/account/login">Log in.</a>
+            </p>
+
+            <div class="form-row">
+                <input
+                    type="text"
+                    name="customer[first_name]"
+                    placeholder="First Name"
+                    autofocus
+                    {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+                    required
+                />
+
+                <input
+                    type="text"
+                    name="customer[last_name]"
+                    placeholder="Last Name"
+                    {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+                    required
+                />
+            </div>
+
+            <input
+                type="email"
+                name="customer[email]"
+                class="{% if form.errors contains 'email' %}input-error{% endif %}"
+                placeholder="Email Address"
+                value="{% if form.email %}{{ form.email }}{% endif %}"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                required
+            />
+
+            <input
+                type="password"
+                name="customer[password]"
+                class="{% if form.errors contains 'password' %}input-error{% endif %}"
+                placeholder="Password"
+                required
+            />
+
+            <input class="button submit" type="submit" value="Sign Up" />
+
+            <p>
+                <a href="{{ shop.url }}">Cancel</a>
+            </p>
+
+        {% endform %}
+
+    </div>
+</main>

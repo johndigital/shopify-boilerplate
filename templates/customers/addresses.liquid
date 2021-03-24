@@ -1,1 +1,128 @@
-<!-- /templates/customers/addresses.liquid -->
+{% comment %}
+    Theme-addresses package:
+    https://help.shopify.com/en/themes/development/templates/customers-addresses
+{% endcomment %}
+<script src="https://unpkg.com/@shopify/theme-addresses@latest/dist/theme-addresses.min.js"></script>
+
+<main class="customers-addresses" data-barba="container">
+    <div class="contained">
+
+        <h2 class="account-page-title">Addresses</h2>
+        <a class="account-overview-link" href="/account">←&nbsp;&nbsp;&nbsp;Account Overview</a>
+
+        <div class="addresses">
+            {% if customer.addresses.size != 0 %}
+                {% for address in customer.addresses %}
+
+                    <div class="customer-address">
+                        <h2 class="address-title">
+                            {% if address == customer.default_address %}<span class="default_address note txt-blue">Default Address: {{ address.street }}</span>{% endif %}
+                        </h2>
+                        <div class="columns">
+                            <div class="col-address">
+                                {{ address | format_address }}
+                            </div>
+                            <div class="col-remove">
+                                <form action="/account/addresses/{{ address.id }}" method="post" class="unstyled address-delete-form" data-confirm-message="Are you sure you wish to delete this address?">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input class="remove-button" type="submit" value="Remove Address" />
+                                </form>
+                            </div>
+                    </div>
+                  </div>
+
+                {% endfor %}
+            {% else %}
+                <p>You don't have any addresses saved.</p>
+            {% endif %}
+        </div>
+
+        <a href="#" onclick="toggleNewAddressForm(); return false;" class="add-new-address button">Add a new address</a>
+    </div>
+
+    {% comment %} NEW ADDRESS {% endcomment %}
+    <div class="contained view-add-new">
+        <h2 class="account-page-title">New Address</h2>
+        {% form 'customer_address', customer.new_address %}
+            <div>
+                <label for="AddressFirstName">First Name</label>
+                <input placeholder="First Name" type="text" id="AddressFirstName" name="address[first_name]" value="{{ form.first_name }}">
+            </div>
+
+            <div>
+                <label for="AddressLastName">Last Name</label>
+                <input placeholder="Last Name" type="text" id="AddressLastName" name="address[last_name]" value="{{ form.last_name }}">
+            </div>
+
+            <div>
+                <label for="AddressCompany">Company</label>
+                <input placeholder="Company" type="text" id="AddressCompany" name="address[company]" value="{{ form.company }}">
+            </div>
+
+            <div>
+                <label for="AddressAddress1">Address Line 1</label>
+                <input placeholder="Address Line 1" type="text" id="AddressAddress1" name="address[address1]" value="{{ form.address1 }}">
+            </div>
+
+            <div>
+                <label for="AddressAddress2">Address Line 2</label>
+                <input placeholder="Address Line 2" type="text" id="AddressAddress2" name="address[address2]" value="{{ form.address2 }}">
+            </div>
+
+            <div>
+                <label for="AddressCity">City</label>
+                <input placeholder="City" type="text" id="AddressCity" name="address[city]" value="{{ form.city }}">
+            </div>
+
+            <div class="select-wrapper">
+                <label for="AddressCountry">Country</label>
+                <select id="AddressCountry" name="address[country]" data-default="US"></select>
+            </div>
+
+            <div class="select-wrapper">
+                <label for="AddressProvince">Province</label>
+                <select id="AddressProvince" name="address[province]" data-default="{{ form.province }}"></select>
+            </div>
+
+            <div>
+                <label for="AddressZip">Zip</label>
+                <input placeholder="Zip" type="text" id="AddressZip" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+            </div>
+
+            <div>
+                <label for="AddressPhone">Phone</label>
+                <input placeholder="Phone" type="tel" id="AddressPhone" name="address[phone]" value="{{ form.phone }}">
+            </div>
+        {% endform %}
+
+        <button type="submit" onclick="submitNewAddressForm(); return false;" class="button">Add Address</button>
+    </div>
+
+</main>
+
+<script>
+    document.body.classList.add('account-page')
+
+    setTimeout(function(){
+        Shopify.theme.addresses.AddressForm(document.querySelector('.view-add-new form'), 'en', {
+            shippingCountriesOnly: true
+        });
+    }, 1000)
+
+    // Manually submit form
+    const submitNewAddressForm = function(){
+        const targetForm = document.querySelector('.view-add-new form');
+        targetForm.submit();
+    }
+
+    // Halper to toggle body class
+    const toggleNewAddressForm = function(){
+        const classList = document.body.classList
+        if ( classList.contains('add-new-address') ) {
+            classList.remove('add-new-address')
+        } else {
+            classList.add('add-new-address')
+        }
+    }
+
+</script>

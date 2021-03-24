@@ -1,6 +1,6 @@
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserJSPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path')
 
 const devMode = process.env.NODE_ENV !== 'production'
@@ -9,16 +9,17 @@ module.exports = {
     mode: devMode ? 'development' : 'production',
     entry: './src/js/main.js',
     optimization: {
-        minimizer: [new OptimizeCSSAssetsPlugin()]
+        minimize: !devMode,
+        minimizer: [new OptimizeCSSAssetsPlugin(), new TerserPlugin()],
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'assets')
+        path: path.resolve(__dirname, 'assets'),
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'bundle.css'
-        })
+            filename: 'bundle.css',
+        }),
     ],
     module: {
         rules: [
@@ -28,7 +29,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: { url: false, sourceMap: true }
+                        options: { url: false, sourceMap: true },
                     },
                     { loader: 'sass-loader', options: { sourceMap: true } },
                     {
@@ -36,11 +37,11 @@ module.exports = {
                         options: {
                             sourceMap: true,
                             postcssOptions: {
-                                plugins: [require('postcss-preset-env')]
-                            }
-                        }
-                    }
-                ]
+                                plugins: [require('postcss-preset-env')],
+                            },
+                        },
+                    },
+                ],
             },
             {
                 test: /\.m?js$/,
@@ -48,10 +49,16 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            }
-        ]
-    }
+                        presets: [
+                            [
+                                '@babel/preset-env',
+                                // UNCOMMENT TO USE ASYNC/AWAIT
+                                // { useBuiltIns: 'usage', corejs: 3 },
+                            ],
+                        ],
+                    },
+                },
+            },
+        ],
+    },
 }

@@ -1,1 +1,60 @@
-<!-- /templates/customers/account.liquid -->
+<main class="customers-account" data-barba="container">
+    <div class="contained">
+        <h2 class="account-page-title">My Account</h2>
+
+        <div class="order-history-title-row">
+            <h3 class="account-page-subtitle">Order History</h3>
+
+            {% if customer.metafields.subscriptions.customer_string %}
+                <a class="manage-subscriptions" href="/tools/recurring/customer/{{customer.metafields.subscriptions.customer_string}}/subscriptions/">
+                    Manage Subscriptions
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="order-history">
+            {% paginate customer.orders by 20 %}
+                {% if customer.orders.size != 0 %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order Number</th>
+                                <th class="order-date">Date</th>
+                                <th class="payment-status">Payment Status</th>
+                                <th>Fulfillment Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in customer.orders %}
+                                <tr class="responsive-table-row">
+                                    <td>{{ order.name | link_to: order.customer_url }}</td>
+                                    <td class="order-date">{{ order.created_at | date: '%B %d, %Y' }}</td>
+                                    <td class="payment-status">{{ order.financial_status_label }}</td>
+                                    <td>{{ order.fulfillment_status_label }}</td>
+                                    <td>{{ order.total_price | money }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>You haven't placed any orders yet. <a href="/collections/all">Shop products.</a></p>
+                {% endif %}
+
+                {% if paginate.pages > 1 %}
+                    {% section 'pagination' %}
+                {% endif %}
+
+            {% endpaginate %}
+        </div>
+
+        <h3 class="account-page-subtitle">Account Details</h3>
+
+        {{ customer.default_address | format_address }}
+
+        <a href="/account/addresses">View Addresses ({{ customer.addresses_count }})</a>
+        <div class="button-row">
+            <a class="button button-log-out" href="/account/logout">Log Out</a>
+        </div>
+    </div>
+</main>

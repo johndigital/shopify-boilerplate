@@ -1,1 +1,19 @@
-<!-- /templates/customers/login.liquid -->
+<main class="customers-login" data-barba="container">
+    <div class="contained">
+
+        <h2 class="account-page-title">Login</h2>
+
+        {% form 'customer_login' %}
+            {{ form.errors | default_errors }}
+
+            <p>
+                New to {{ shop.name }}? <a href="/account/register" class="create-account-link">Create an account.</a>
+            </p>
+            <input type="email" value="" name="customer[email]" id="customer_email" class="text" placeholder="Email Address" required>
+            <input type="password" value="" name="customer[password]" id="customer_password" class="text" size="16" placeholder="Password" required>
+
+            <input class="button submit" type="submit" value="Sign In" />
+
+        {% endform %}
+    </div>
+</main>

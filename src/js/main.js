@@ -1,9 +1,11 @@
 import barba from '@barba/core'
 import '../scss/main.scss'
-import 'babel-polyfill'
+// import 'babel-polyfill'
 
-const init = async () => {
+const init = () => {
     barba.init({
+        prevent: ({ el }) =>
+            el.classList && el.classList.contains('barba-prevent'),
         transitions: [
             {
                 name: 'default',

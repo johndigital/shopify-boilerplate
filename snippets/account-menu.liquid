@@ -2,7 +2,7 @@
     <nav class="account-menu">
         {% if customer %}
             <a href="/account">Account</a>
-            {{ 'Log Out'  | customer_logout_link }}
+            <a href="/account/logout" id="customer_logout_link" class="barba-prevent">Log Out</a>
         {% else %}
             {{ 'Log In ' | customer_login_link }}
             {{ 'Sign Up' | customer_register_link }}

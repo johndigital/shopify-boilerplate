@@ -12,6 +12,9 @@ Things to document:
 -   general file overview
 -   js supported features
 -   template structure (main, etc)
+-   entry class
+-   barbara
+-   class convention on each templates/\* page
 
 ---
 

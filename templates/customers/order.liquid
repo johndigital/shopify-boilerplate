@@ -1,1 +1,119 @@
-<!-- /templates/customers/order.liquid -->
+<main class="custoemrs-order" data-barba="container">
+    <div class="contained">
+
+        <h2 class="account-page-title">Order Details</h2>
+
+        <div class="order-detail-row">
+            <h3 class="account-page-subtitle">
+                Order {{ order.name }}
+            </h3>
+            <div class="order-date">{{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</div>
+
+            <a class="account-overview-link" href="/account">←&nbsp;&nbsp;&nbsp;Account Overview</a>
+        </div>
+
+        {% if order.cancelled %}
+            <div class="order-cancelled">
+                {%- assign cancelled_at = order.cancelled_at | date: "%B %d, %Y %I:%M%p" -%}
+                <p class="lead-1">{{ cancelled_at  }}</p>
+                <p>Cancel Reason: {{ order.cancel_reason }}</p>
+            </div>
+        {% endif %}
+
+        <div class="order-details">
+            <table class="responsive-table lead-half lead-bottom-2">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <!-- <th class="product-sku">SKU</th> -->
+                  <th class="product-price">Price</th>
+                  <th class="product-qty">Qty</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for line_item in order.line_items %}
+                  <tr id="{{ line_item.key }}" class="responsive-table-row">
+                    <td>
+                      {{ line_item.title | link_to: line_item.product.url }}
+                      {% if line_item.fulfillment %}
+                        <dl>
+                          <dt>Fulfilled:</dt>
+                          <dd>{{ line_item.fulfillment.created_at | date: '%B %d, %Y' }}</dd>
+
+                          {% if line_item.fulfillment.tracking_url %}
+                            <dt>Tracking URL:</dt>
+                            <dd>
+                              <a href="{{ line_item.fulfillment.tracking_url }}">
+                                Track Shipment:
+                              </a>
+                            </dd>
+                          {% endif %}
+
+                          <dt>Tracking Company:</dt>
+                          <dd>{{ line_item.fulfillment.tracking_company }}</dd>
+
+                          {% if line_item.fulfillment.tracking_number %}
+                            <dt>Tracking Number:</dt>
+                            <dd>{{ line_item.fulfillment.tracking_number }}</dd>
+                          {% endif %}
+                        </dl>
+                      {% endif %}
+                    </td>
+                    <!-- <td class="product-sku">{{ line_item.sku }}</td> -->
+                    <td class="product-price">{{ line_item.price | money }}</td>
+                    <td class="product-qty">{{ line_item.quantity }}</td>
+                    <td>{{ line_item.quantity | times: line_item.price | money }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr class="responsive-table-row">
+                  <td>Subtotal</td>
+                  <td>{{ order.subtotal_price | money }}</td>
+                </tr>
+
+                {% for discount in order.discounts %}
+                  <tr>
+                    <td>{{ discount.code }} Discount</td>
+                    <td>{{ discount.savings | money }}</td>
+                  </tr>
+                {% endfor %}
+
+                {% for shipping_method in order.shipping_methods %}
+                  <tr>
+                    <td>Shipping ({{ shipping_method.title }})</td>
+                    <td>{{ shipping_method.price | money }}</td>
+                  </tr>
+                {% endfor %}
+
+                {% for tax_line in order.tax_lines %}
+                  <tr>
+                    <td colspan="4" class="small--hide">Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
+                    <td>{{ tax_line.price | money }}</td>
+                  </tr>
+                {% endfor %}
+
+                <tr>
+                  <td>Total</td>
+                  <td>{{ order.total_price | money }} {{ order.currency }}</td>
+                </tr>
+              </tfoot>
+            </table>
+        </div>
+
+        <div class="order-details">
+            <h3 class="account-page-subtitle">Billing Address</h3>
+
+            <p>Payment Status: {{ order.financial_status_label }}</p>
+
+            {{ order.billing_address | format_address }}
+
+            <h3 class="account-page-subtitle">Shipping Address</h3>
+
+            <p>Fulfillment Status: {{ order.fulfillment_status_label }}</p>
+
+            {{ order.shipping_address | format_address }}
+        </div>
+    </div>
+</main>
